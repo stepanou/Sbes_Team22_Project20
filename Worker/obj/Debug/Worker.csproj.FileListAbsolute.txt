@@ -1,0 +1,7 @@
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Worker\bin\Debug\Worker.exe.config
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Worker\bin\Debug\Worker.exe
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Worker\bin\Debug\Worker.pdb
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csprojAssemblyReference.cache
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csproj.CoreCompileInputs.cache
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Worker\obj\Debug\Worker.exe
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Worker\obj\Debug\Worker.pdb

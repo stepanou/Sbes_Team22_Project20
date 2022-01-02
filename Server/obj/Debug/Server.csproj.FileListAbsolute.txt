@@ -1,0 +1,10 @@
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\obj\Debug\Server.csprojAssemblyReference.cache
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\bin\Debug\Server.exe.config
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\bin\Debug\Server.exe
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\bin\Debug\Server.pdb
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\bin\Debug\Common.dll
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\bin\Debug\Common.pdb
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CopyComplete
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\obj\Debug\Server.exe
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\Server\obj\Debug\Server.pdb

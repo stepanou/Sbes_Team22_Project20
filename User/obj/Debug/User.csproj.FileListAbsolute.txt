@@ -1,0 +1,6 @@
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\bin\Debug\User.exe.config
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\bin\Debug\User.exe
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\bin\Debug\User.pdb
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\obj\Debug\User.csproj.CoreCompileInputs.cache
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\obj\Debug\User.exe
+C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\obj\Debug\User.pdb
