@@ -38,6 +38,7 @@ namespace User
             catch (FaultException<SecurityException> e)
             {
                 Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
+                return retVal;
             }
             catch (Exception ex)
             {
@@ -59,6 +60,7 @@ namespace User
             catch (FaultException<SecurityException> e)
             {
                 Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
+                return retVal;
             }
             catch (Exception ex)
             {
@@ -87,6 +89,7 @@ namespace User
                 Console.WriteLine(ex.Message);
                 return retVal;
             }
+            return retVal;
         }
 
         public bool DeleteDataBase()
@@ -108,6 +111,7 @@ namespace User
                 Console.WriteLine(ex.Message);
                 return retVal;
             }
+            return retVal;
         }
 
         public float GetConsumption(int id, float clientConsumption)
@@ -128,6 +132,7 @@ namespace User
                 Console.WriteLine(ex.Message);
                 return 0;
             }
+            return 0;
         }
 
         public bool InstallSmartMeter(int id, string user, float consumption)
@@ -149,6 +154,7 @@ namespace User
                 Console.WriteLine(ex.Message);
                 return retVal;
             }
+            return retVal;
         }
 
         public bool RemoveSmartMeter(int id)
@@ -170,6 +176,7 @@ namespace User
                 Console.WriteLine(ex.Message);
                 return retVal;
             }
+            return retVal;
         }
     }
 }
