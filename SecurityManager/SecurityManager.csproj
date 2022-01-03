@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1EFDAA2A-27F1-4268-ACC7-86BFE8A60A93}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Server</RootNamespace>
-    <AssemblyName>Server</AssemblyName>
+    <ProjectGuid>{8CD38C7D-E33B-4917-9C95-30055F36788A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SecurityManager</RootNamespace>
+    <AssemblyName>SecurityManager</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,10 +32,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,25 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBase\DataBaseManager.cs" />
-    <Compile Include="DataBase\DirectoryConfig.cs" />
-    <Compile Include="LoadBalancer.cs" />
-    <Compile Include="MainService.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="CustomAuthorizationPolicy.cs" />
+    <Compile Include="CustomPrincipal.cs" />
+    <Compile Include="Formatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolesConfig.cs" />
+    <Compile Include="RolesConfigFile.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RolesConfigFile.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{b1c7f9a8-4254-41ae-bc2d-b9a111d27ac1}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SecurityManager\SecurityManager.csproj">
-      <Project>{8cd38c7d-e33b-4917-9c95-30055f36788a}</Project>
-      <Name>SecurityManager</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="RolesConfigFile.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RolesConfigFile.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
