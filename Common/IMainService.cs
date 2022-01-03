@@ -11,18 +11,39 @@ namespace Common
     public interface IMainService
     {
         [OperationContract]
-        float GetConsumption(int id, float clientConsumption); //Customer
+        [FaultContract(typeof(SecurityException))]
+        [FaultContract(typeof(OperationException))]
+        float GetConsumption(int id, string clientConsumption); //Customer
+
         [OperationContract]
+        [FaultContract(typeof(SecurityException))]
+        [FaultContract(typeof(OperationException))]
         bool ChangeSmartMeterID(int id, int newID); //Operator
+
         [OperationContract]
-        bool ChangeClientsConsumption(int id, float newConsumption); //Operator
+        [FaultContract(typeof(SecurityException))]
+        [FaultContract(typeof(OperationException))]
+        bool ChangeClientsConsumption(int id, string newConsumption); //Operator
+
         [OperationContract]
-        bool InstallSmartMeter(int id, string user, float consumption); //Admin
+        [FaultContract(typeof(SecurityException))]
+        [FaultContract(typeof(OperationException))]
+        void InstallSmartMeter(int id, string user, string consumption); //Admin
+
+
         [OperationContract]
+        [FaultContract(typeof(SecurityException))]
+        [FaultContract(typeof(OperationException))]
         bool RemoveSmartMeter(int id); //Admin
+
         [OperationContract]
+        [FaultContract(typeof(SecurityException))]
+        [FaultContract(typeof(OperationException))]
         bool DeleteDataBase(); //Super-Admin
+
         [OperationContract]
+        [FaultContract(typeof(SecurityException))]
+        [FaultContract(typeof(OperationException))]
         bool ArchiveDataBase(); //Super-Admin
 
     }

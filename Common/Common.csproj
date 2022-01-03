@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMainService.cs" />
+    <Compile Include="OperationException.cs" />
     <Compile Include="SecurityException.cs" />
     <Compile Include="SmartMeter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

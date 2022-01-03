@@ -29,7 +29,7 @@ namespace Server
             host.Authorization.ExternalAuthorizationPolicies = policies.AsReadOnly();
 
             host.Open();
-            Console.WriteLine("WCFService is opened. Press <enter> to finish...");
+            Console.WriteLine("SmartMeter Service is opened. Press <enter> to finish...");
             Console.ReadLine();
 
             host.Close();

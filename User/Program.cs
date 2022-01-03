@@ -23,50 +23,69 @@ namespace User
                                                                                     //   EndpointIdentity.CreateUpnIdentity("wcfServer"));
 
             int operation = 0;
+            int id = 0;
+            string consumption = string.Empty;
+            string consumer = string.Empty;
 
-            do
+
+            using (UserProxy proxy = new UserProxy(binding,endpointAddress))
             {
-                Menu();
-
-
-                operation = Console.Read();
-
-                switch (operation)
+                do
                 {
-                    case 1:
-                        {
-                            break;
-                        }
-                    case 2:
-                        {
-                            break;
-                        }
-                    case 3:
-                        {
-                            break;
-                        }
-                    case 4:
-                        {
-                            break;
-                        }
-                    case 5:
-                        {
-                            break;
-                        }
-                    case 6:
-                        {
-                            break;
-                        }
-                    case 7:
-                        {
-                            break;
-                        }
+                    Menu();
+                    Console.Write("Choose operation>> ");
+                    operation = Int32.Parse(Console.ReadLine());
+                   // Console.WriteLine("\n");
 
-                    default:
-                        break;
-                }
+                    switch (operation)
+                    {
+                        case 1:
+                            {
+                                break;
+                            }
+                        case 2:
+                            {
+                                break;
+                            }
+                        case 3:
+                            {
+                                break;
+                            }
+                        case 4:
+                            {
+                                Console.WriteLine("4. Install new SmartMeter");
+                                Console.Write("\tID= ");
+                                id = Int32.Parse(Console.ReadLine());
 
-            } while ( (operation > 0) && (operation <8));
+                                Console.Write("\tConsumer= ");
+                                consumer = Console.ReadLine();
+
+                                Console.Write("\tConsumption= ");
+                                consumption = Console.ReadLine();
+
+                                proxy.InstallSmartMeter(id, consumer, consumption);
+
+                                break;
+                            }
+                        case 5:
+                            {
+                                break;
+                            }
+                        case 6:
+                            {
+                                break;
+                            }
+                        case 7:
+                            {
+                                break;
+                            }
+
+                        default:
+                            break;
+                    }
+
+                } while ((operation > 0) && (operation < 8)); 
+            }
 
 
             Console.ReadLine();
@@ -84,11 +103,9 @@ namespace User
             Console.WriteLine("5. Remove SmartMeter");
             Console.WriteLine("6. Erase all entitys from  DataBase");
             Console.WriteLine("7. Make an archive of current DataBase");
-            Console.WriteLine("8. Exit\n");
-
-            Console.Write("Choose operation>> ");
-            Console.WriteLine("=================================================");
-
+            Console.WriteLine("8. Exit");
+            Console.WriteLine("===================================================");
+            
         }
 
 

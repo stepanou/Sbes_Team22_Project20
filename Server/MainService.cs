@@ -19,7 +19,7 @@ namespace Server
         {
             if (Thread.CurrentPrincipal.IsInRole("Archive"))
             {
-
+                return false;
             }    
             else
             {
@@ -30,12 +30,10 @@ namespace Server
                 throw new FaultException<SecurityException>(new SecurityException(message));
             }
 
-
-            throw new NotImplementedException();
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Modify")]
-        public bool ChangeClientsConsumption(int id, float newConsumption)
+        public bool ChangeClientsConsumption(int id, string newConsumption)
         {
             throw new NotImplementedException();
         }
@@ -53,15 +51,38 @@ namespace Server
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Read")]
-        public float GetConsumption(int id, float clientConsumption)
+        public float GetConsumption(int id, string clientConsumption)
         {
             throw new NotImplementedException();
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Role = "Insert")]
-        public bool InstallSmartMeter(int id, string user, float consumption)
+      //  [PrincipalPermission(SecurityAction.Demand, Role = "Insert")]
+        public void InstallSmartMeter(int id, string user, string consumption)
         {
-            throw new NotImplementedException();
+
+            if (Thread.CurrentPrincipal.IsInRole("Insert"))
+            {
+                string retVal = string.Empty;
+
+                retVal = DataBase.DataBaseManager.InsertEntity(id.ToString(), user, consumption.ToString());
+
+                if (!retVal.Equals(string.Empty))
+                {
+                    OperationException opEX = new OperationException(retVal);
+                    throw new FaultException<OperationException>(opEX,new FaultReason(retVal));
+                }
+            }
+            else
+            {
+                string name = Thread.CurrentPrincipal.Identity.Name;
+                DateTime time = DateTime.Now;
+                string message = String.Format("Access is denied. User {0} try to call InstallSmartMeter method (time : {1}). " +
+                    "For this method needs to have a \"Insert\" permission.", name, time.TimeOfDay);
+
+
+                SecurityException secEx = new SecurityException(message);
+                throw new FaultException<SecurityException>(secEx,new FaultReason(secEx.Message));
+            }
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Remove")]

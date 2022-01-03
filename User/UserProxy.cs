@@ -23,7 +23,7 @@ namespace User
 
             Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
             factory = this.CreateChannel();
-            //Credentials.Windows.AllowNtlm = false;
+            
         }
 
         public bool ArchiveDataBase()
@@ -48,7 +48,7 @@ namespace User
             }
         }
 
-        public bool ChangeClientsConsumption(int id, float newConsumption)
+        public bool ChangeClientsConsumption(int id, string newConsumption)
         {
             bool retVal = false;
 
@@ -114,7 +114,7 @@ namespace User
             return retVal;
         }
 
-        public float GetConsumption(int id, float clientConsumption)
+        public float GetConsumption(int id, string clientConsumption)
         {
             
             try
@@ -135,26 +135,35 @@ namespace User
             return 0;
         }
 
-        public bool InstallSmartMeter(int id, string user, float consumption)
+        public void InstallSmartMeter(int id, string user, string consumption)
         {
-            bool retVal = false;
-
+            
             try
             {
 
-                return retVal;
+                factory.InstallSmartMeter(id, user, consumption);
+
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("Security Error: {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+            }
+            catch (FaultException<OperationException> e)
+            {
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return retVal;
+                this.Dispose();
+               
             }
-            return retVal;
+            
         }
 
         public bool RemoveSmartMeter(int id)
@@ -177,6 +186,15 @@ namespace User
                 return retVal;
             }
             return retVal;
+        }
+        public void Dispose()
+        {
+            if (factory != null)
+            {
+                factory = null;
+            }
+           
+            this.Close();
         }
     }
 }

@@ -116,7 +116,7 @@ namespace Server.DataBase
         #endregion
 
         #region operations on Entities
-        public static bool InsertEntity(string id, string user, string consumption)
+        public static string InsertEntity(string id, string user, string consumption)
         {
 
             StreamReader streamReader = null;
@@ -143,7 +143,7 @@ namespace Server.DataBase
                 }
                 if (exist)
                 {
-                    return false;
+                    return String.Format("Entity with id {0} already exists.",id);
                 }
                 else
                 {
@@ -156,7 +156,7 @@ namespace Server.DataBase
 
 
 
-                    return true;
+                    return string.Empty;
                 }
 
             }
@@ -164,7 +164,7 @@ namespace Server.DataBase
             {
 
                 Console.WriteLine(ex.Message);
-                return false;
+                return String.Format("Inserting entity with id {0} faild.", id);
             }
             finally
             {
