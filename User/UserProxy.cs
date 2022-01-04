@@ -26,113 +26,153 @@ namespace User
             
         }
 
-        public bool ArchiveDataBase()
+        public void ArchiveDataBase()
         {
-            bool retVal = false;
-
             try
             {
 
-                return retVal;
+                factory.ArchiveDataBase();
+
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
-                return retVal;
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("Security Error: {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+            }
+            catch (FaultException<OperationException> e)
+            {
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return retVal;
+                this.Dispose();
+
             }
         }
 
-        public bool ChangeClientsConsumption(int id, string newConsumption)
+        public void ChangeClientsConsumption(int id, string newConsumption)
         {
-            bool retVal = false;
-
             try
             {
 
-                return retVal;
+                factory.ChangeClientsConsumption(id, newConsumption);
+
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
-                return retVal;
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("Security Error: {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+            }
+            catch (FaultException<OperationException> e)
+            {
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return retVal;
+                this.Dispose();
+
             }
         }
 
-        public bool ChangeSmartMeterID(int id, int newID)
+        public void ChangeSmartMeterID(int id, int newID)
         {
-            bool retVal = false;
-
             try
             {
 
-                return retVal;
+                factory.ChangeSmartMeterID(id, newID);
+
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("Security Error: {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+            }
+            catch (FaultException<OperationException> e)
+            {
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return retVal;
+                this.Dispose();
+
             }
-            return retVal;
         }
 
-        public bool DeleteDataBase()
+        public void DeleteDataBase()
         {
-            bool retVal = false;
 
             try
             {
 
-                return retVal;
+                factory.DeleteDataBase();
+
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("Security Error: {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+            }
+            catch (FaultException<OperationException> e)
+            {
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return retVal;
+                this.Dispose();
+
             }
-            return retVal;
         }
 
         public float GetConsumption(int id, string clientConsumption)
         {
-            
+
             try
             {
 
-                return 0;
+                return factory.GetConsumption(id, clientConsumption);
+
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("Security Error: {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                return 0;
+            }
+            catch (FaultException<OperationException> e)
+            {
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                return 0;
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
+                this.Dispose();
                 return 0;
             }
-            return 0;
         }
 
         public void InstallSmartMeter(int id, string user, string consumption)
@@ -166,26 +206,33 @@ namespace User
             
         }
 
-        public bool RemoveSmartMeter(int id)
+        public void RemoveSmartMeter(int id)
         {
-            bool retVal = false;
-
             try
             {
 
-                return retVal;
+                factory.RemoveSmartMeter(id);
+
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("Error while trying to Read : {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("Security Error: {0}", e.Detail.Message);
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+            }
+            catch (FaultException<OperationException> e)
+            {
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return retVal;
+                this.Dispose();
+
             }
-            return retVal;
         }
         public void Dispose()
         {

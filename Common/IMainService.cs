@@ -18,12 +18,12 @@ namespace Common
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        bool ChangeSmartMeterID(int id, int newID); //Operator
+        void ChangeSmartMeterID(int id, int newID); //Operator
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        bool ChangeClientsConsumption(int id, string newConsumption); //Operator
+        void ChangeClientsConsumption(int id, string newConsumption); //Operator
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
@@ -34,17 +34,17 @@ namespace Common
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        bool RemoveSmartMeter(int id); //Admin
+        void RemoveSmartMeter(int id); //Admin
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        bool DeleteDataBase(); //Super-Admin
+        void DeleteDataBase(); //Super-Admin
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        bool ArchiveDataBase(); //Super-Admin
+        void ArchiveDataBase(); //Super-Admin
 
     }
 }

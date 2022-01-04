@@ -24,6 +24,7 @@ namespace User
 
             int operation = 0;
             int id = 0;
+            int newId = 0;
             string consumption = string.Empty;
             string consumer = string.Empty;
 
@@ -45,10 +46,26 @@ namespace User
                             }
                         case 2:
                             {
+                                Console.WriteLine("2. Change SmartMeter's ID number");
+                                Console.Write("\tID= ");
+                                id = Int32.Parse(Console.ReadLine());
+
+                                Console.Write("\tNew ID= ");
+                                newId = Int32.Parse(Console.ReadLine());
+
+                                proxy.ChangeSmartMeterID(id, newId);
                                 break;
                             }
                         case 3:
                             {
+                                Console.WriteLine("3. Change clients electricity consumption");
+                                Console.Write("\tID= ");
+                                id = Int32.Parse(Console.ReadLine());
+
+                                Console.Write("\tConsumption= ");
+                                consumption = Console.ReadLine();
+
+                                proxy.ChangeClientsConsumption(id, consumption);
                                 break;
                             }
                         case 4:
@@ -64,19 +81,27 @@ namespace User
                                 consumption = Console.ReadLine();
 
                                 proxy.InstallSmartMeter(id, consumer, consumption);
-
                                 break;
                             }
                         case 5:
                             {
+                                Console.WriteLine("5. Remove SmartMeter");
+                                Console.Write("\tID= ");
+                                id = Int32.Parse(Console.ReadLine());
+
+                                proxy.RemoveSmartMeter(id);
                                 break;
                             }
                         case 6:
                             {
+                                Console.WriteLine("6. Erase all entitys from  DataBase");
+                                proxy.DeleteDataBase();
                                 break;
                             }
                         case 7:
                             {
+                                Console.WriteLine("7. Make an archive of current DataBase");
+                                proxy.ArchiveDataBase();
                                 break;
                             }
 

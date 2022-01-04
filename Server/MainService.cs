@@ -7,6 +7,7 @@ using Common;
 using System.ServiceModel;
 using System.Security.Permissions;
 using System.Threading;
+using System.Security.Principal;
 
 namespace Server
 {
@@ -14,12 +15,23 @@ namespace Server
     {
 
 
-        [OperationBehavior(Impersonation = ImpersonationOption.Required)]
-        public bool ArchiveDataBase()
+     //   [OperationBehavior(Impersonation = ImpersonationOption.Required)]
+        public void ArchiveDataBase()
         {
             if (Thread.CurrentPrincipal.IsInRole("Archive"))
             {
-                return false;
+                string retVal = string.Empty;
+
+                Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
+
+                retVal = DataBase.DataBaseManager.ArchiveDB();
+
+                if (!retVal.Equals(string.Empty))
+                {
+                    OperationException opEX = new OperationException(retVal);
+                    throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
+                }
+
             }    
             else
             {
@@ -32,31 +44,97 @@ namespace Server
 
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Role = "Modify")]
-        public bool ChangeClientsConsumption(int id, string newConsumption)
+        
+        public void ChangeClientsConsumption(int id, string newConsumption)
         {
-            throw new NotImplementedException();
+            if (Thread.CurrentPrincipal.IsInRole("Modify"))
+            {
+                string retVal = string.Empty;
+
+                retVal = DataBase.DataBaseManager.ModifiyEntity(id.ToString(), newConsumption);
+
+                if (!retVal.Equals(string.Empty))
+                {
+                    OperationException opEX = new OperationException(retVal);
+                    throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
+                }
+            }
+            else
+            {
+                string name = Thread.CurrentPrincipal.Identity.Name;
+                DateTime time = DateTime.Now;
+                string message = String.Format("Access is denied. User {0} try to call ChangeClientsConsumption() [time : {1}].\n" +
+                    "For this method needs to have a \"MODIFY\" permission.", name, time.TimeOfDay);
+
+
+                SecurityException secEx = new SecurityException(message);
+                throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+            }
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Role = "Modify")]
-        public bool ChangeSmartMeterID(int id, int newID)
+        
+        public void ChangeSmartMeterID(int id, int newID)
         {
-            throw new NotImplementedException();
+            if (Thread.CurrentPrincipal.IsInRole("Modify"))
+            {
+                string retVal = string.Empty;
+
+                retVal = DataBase.DataBaseManager.ModifiyEntityId(id.ToString(), newID.ToString());
+
+                if (!retVal.Equals(string.Empty))
+                {
+                    OperationException opEX = new OperationException(retVal);
+                    throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
+                }
+            }
+            else
+            {
+                string name = Thread.CurrentPrincipal.Identity.Name;
+                DateTime time = DateTime.Now;
+                string message = String.Format("Access is denied. User {0} try to call ChangeSmartMeterID() [time : {1}].\n" +
+                    "For this method needs to have a \"MODIFY\" permission.", name, time.TimeOfDay);
+
+
+                SecurityException secEx = new SecurityException(message);
+                throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+            }
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Role = "Delete")]
-        public bool DeleteDataBase()
+      
+        public void DeleteDataBase()
         {
-            throw new NotImplementedException();
+            if (Thread.CurrentPrincipal.IsInRole("Delete"))
+            {
+                string retVal = string.Empty;
+
+                retVal = DataBase.DataBaseManager.DeleteDB();
+
+                if (!retVal.Equals(string.Empty))
+                {
+                    OperationException opEX = new OperationException(retVal);
+                    throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
+                }
+            }
+            else
+            {
+                string name = Thread.CurrentPrincipal.Identity.Name;
+                DateTime time = DateTime.Now;
+                string message = String.Format("Access is denied. User {0} try to call DeleteDataBase() [time : {1}].\n" +
+                    "For this method needs to have a \"DELETE\" permission.", name, time.TimeOfDay);
+
+
+                SecurityException secEx = new SecurityException(message);
+                throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+            }
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Role = "Read")]
+        
         public float GetConsumption(int id, string clientConsumption)
         {
             throw new NotImplementedException();
         }
 
-      //  [PrincipalPermission(SecurityAction.Demand, Role = "Insert")]
+      
         public void InstallSmartMeter(int id, string user, string consumption)
         {
 
@@ -76,8 +154,8 @@ namespace Server
             {
                 string name = Thread.CurrentPrincipal.Identity.Name;
                 DateTime time = DateTime.Now;
-                string message = String.Format("Access is denied. User {0} try to call InstallSmartMeter method (time : {1}). " +
-                    "For this method needs to have a \"Insert\" permission.", name, time.TimeOfDay);
+                string message = String.Format("Access is denied. User {0} try to call InstallSmartMeter method [time : {1}].\n" +
+                    "For this method needs to have a \"INSERT\" permission.", name, time.TimeOfDay);
 
 
                 SecurityException secEx = new SecurityException(message);
@@ -85,10 +163,36 @@ namespace Server
             }
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Role = "Remove")]
-        public bool RemoveSmartMeter(int id)
+      //  [PrincipalPermission(SecurityAction.Demand, Role = "Remove")]
+        public void RemoveSmartMeter(int id)
         {
-            throw new NotImplementedException();
+            if (Thread.CurrentPrincipal.IsInRole("Remove"))
+            {
+                string retVal = string.Empty;
+
+                retVal = DataBase.DataBaseManager.DeleteEntity(id.ToString());
+
+                if (!retVal.Equals(string.Empty))
+                {
+                    OperationException opEX = new OperationException(retVal);
+                    throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
+                }
+            }
+            else
+            {
+                string name = Thread.CurrentPrincipal.Identity.Name;
+                DateTime time = DateTime.Now;
+                string message = String.Format("Access is denied. User {0} try to call RemoveSmartMeter() method [time : {1}].\n" +
+                    "For this method needs to have a \"REMOVE\" permission.", name, time.TimeOfDay);
+
+
+                SecurityException secEx = new SecurityException(message);
+                throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+            }
         }
+
+
+        
+
     }
 }

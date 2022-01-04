@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Common;
 
@@ -14,12 +16,14 @@ namespace Server.DataBase
         private const string dataBasePath = @"\DataBase.txt";
         private const string archivePath = @"\Archive.txt";
         private static int num;
+        private static object lockObject;
         private const char separator = ';';
 
 
         static DataBaseManager()
         {
             num = 0;
+            lockObject = new object();
             DataBaseManager.CreateDB();
         }
 
@@ -42,53 +46,66 @@ namespace Server.DataBase
                 throw new Exception(ex.Message);
             }
         }
-        public static bool ArchiveDB()
+        public static string ArchiveDB()
         {
             StreamReader streamReader = null;
             StreamWriter streamWriter = null;
             string line = String.Empty;
             string[] lines = archivePath.Split('.');
-            string tempPath = lines[0] + num++.ToString() + "." + lines[1];
+            string tempPath = lines[0] + (++num).ToString() + "." + lines[1];
 
+
+            Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
 
             try
             {
 
-                //while (true)
-                //{
-                //    if (file.exists(directoryconfig.instance.archivedirectory + temppath))
-                //    {
-                //        temppath = lines[0] + (++num).tostring() + "." + lines[1];
-                //    }
-                //    else
-                //    {
-                //        break;
-                //    }
-
-                //}
-
+                while (true)
+                {
+                    if (File.Exists(DirectoryConfig.Instance.ArchiveDirectory + tempPath))
+                    {
+                       tempPath = lines[0] + (++num).ToString() + "." + lines[1];
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
 
                 streamReader = new StreamReader(DirectoryConfig.Instance.DataBaseDirecotry + dataBasePath);
-                streamWriter = File.CreateText(DirectoryConfig.Instance.ArchiveDirectory + tempPath);
 
-                while ((line = streamReader.ReadLine()) != null)
+                IIdentity identity = Thread.CurrentPrincipal.Identity;
+                WindowsIdentity windowsIdentity = identity as WindowsIdentity;
+
+                Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
+
+                using (windowsIdentity.Impersonate())
                 {
-                    streamWriter.WriteLine(line);
+                    Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
+
+                    streamWriter = File.CreateText(DirectoryConfig.Instance.ArchiveDirectory + tempPath);
+
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        streamWriter.WriteLine(line);
+                    } 
                 }
+
+                Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
+
                 streamReader.Close();
                 DeleteDB();
                 streamWriter.Close();
 
-                return true;
+                return string.Empty;
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
-
+                Console.WriteLine(ex.Message);
+                return "Archiving data base failed.";
             }
         }
-        public static bool DeleteDB()
+        public static string DeleteDB()
         {
 
             try
@@ -99,18 +116,19 @@ namespace Server.DataBase
 
                     using (File.Create(DirectoryConfig.Instance.DataBaseDirecotry + dataBasePath))
                     {
-                        return true;
+                        return string.Empty;
+                            
                     }
                 }
                 else
                 {
-                    return false;
+                    return "DataBase does not exist" ;
                 }
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                Console.WriteLine(ex.Message);
+                return "Deleting data base failed.";
             }
         }
         #endregion
@@ -164,7 +182,7 @@ namespace Server.DataBase
             {
 
                 Console.WriteLine(ex.Message);
-                return String.Format("Inserting entity with id {0} faild.", id);
+                return String.Format("Inserting entity with id {0} failed.", id);
             }
             finally
             {
@@ -180,7 +198,7 @@ namespace Server.DataBase
             }
         }
 
-        public static bool ModifiyEntityId(string id, string newID)
+        public static string ModifiyEntityId(string id, string newID)
         {
             StreamReader streamReader = null;
             StringBuilder stringBuilder = new StringBuilder();
@@ -209,7 +227,7 @@ namespace Server.DataBase
 
                 if (tempLines[0].Equals(String.Empty))
                 {
-                    return false;
+                    return String.Format("Entity with id {0} doesn't exist.", id);
                 }
 
                 stringBuilder.AppendLine(String.Join(separator.ToString(), tempLines));
@@ -217,24 +235,25 @@ namespace Server.DataBase
 
                 File.WriteAllText(DirectoryConfig.Instance.DataBaseDirecotry + dataBasePath, stringBuilder.ToString());
 
-                return true;
+                return string.Empty;
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return false;
+                return String.Format("Modifying entities id with id {0} failed.", id);
             }
             finally
             {
                 if (streamReader != null)
                 {
                     streamReader.Close();
+                   
                 }
             }
         }
 
-        public static bool ModifiyEntity(string id, string consumption)
+        public static string ModifiyEntity(string id, string consumption)
         {
             StreamReader streamReader = null;
             StringBuilder stringBuilder = new StringBuilder();
@@ -263,7 +282,7 @@ namespace Server.DataBase
 
                 if (tempLines[0].Equals(String.Empty))
                 {
-                    return false;
+                    return String.Format("Entity with id {0} doesn't exist.", id);
                 }
 
                 stringBuilder.AppendLine(String.Join(separator.ToString(), tempLines));
@@ -271,13 +290,13 @@ namespace Server.DataBase
 
                 File.WriteAllText(DirectoryConfig.Instance.DataBaseDirecotry + dataBasePath, stringBuilder.ToString());
 
-                return true;
+                return string.Empty;
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return false;
+                return String.Format("Modifying entities id with id {0} failed.", id);
             }
             finally
             {
@@ -290,13 +309,13 @@ namespace Server.DataBase
 
 
 
-        public static bool DeleteEntity(string id)
+        public static string DeleteEntity(string id)
         {
             StreamReader streamReader = null;
             StringBuilder stringBuilder = new StringBuilder();
             string line = string.Empty;
             string[] lines = new string[3];
-            bool retVal = false;
+            string retVal = string.Empty;
 
             try
             {
@@ -308,7 +327,7 @@ namespace Server.DataBase
 
                     if (lines[0].Equals(id))
                     {
-                        retVal = true;
+
                         continue;
                     }
                     stringBuilder.AppendLine(line);
@@ -317,13 +336,13 @@ namespace Server.DataBase
 
                 File.WriteAllText(DirectoryConfig.Instance.DataBaseDirecotry + dataBasePath, stringBuilder.ToString());
 
-                return retVal;
+                return String.Format("Entity with id {0} doesn't exist.", id);
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                return false;
+                return String.Format("Removing entity with id {0} failed.", id);
             }
             finally
             {
