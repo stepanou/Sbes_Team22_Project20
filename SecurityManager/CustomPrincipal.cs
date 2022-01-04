@@ -7,7 +7,7 @@ using System.Security.Principal;
 
 namespace SecurityManager
 {
-    class CustomPrincipal : IPrincipal
+    public class CustomPrincipal : IPrincipal
     {
         WindowsIdentity identity = null;
         public CustomPrincipal(WindowsIdentity windowsIdentity)

@@ -8,6 +8,7 @@ using System.ServiceModel;
 using System.Security.Permissions;
 using System.Threading;
 using System.Security.Principal;
+using SecurityManager;
 
 namespace Server
 {
@@ -18,6 +19,9 @@ namespace Server
      //   [OperationBehavior(Impersonation = ImpersonationOption.Required)]
         public void ArchiveDataBase()
         {
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+            string userName = Formatter.ParseName(principal.Identity.Name);
+
             if (Thread.CurrentPrincipal.IsInRole("Archive"))
             {
                 string retVal = string.Empty;
@@ -32,14 +36,33 @@ namespace Server
                     throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
                 }
 
+                try
+                {
+                    Audit.AuthorizationSuccess(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
             }    
             else
             {
-                string name = Thread.CurrentPrincipal.Identity.Name;
+                try
+                {
+                    Audit.AuthorizationFailed(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action, "ArchiveDataBase method need Archive permission.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
                 DateTime time = DateTime.Now;
-                string message = String.Format("Access is denied. User {0} try to call Delete method (time : {1}). " +
-                    "For this method need to be member of group Admin.", name, time.TimeOfDay);
-                throw new FaultException<SecurityException>(new SecurityException(message));
+                string message = String.Format("Access is denied. User {0} try to call ArchiveDataBase method (time : {1}). " +
+                    "For this method need to be member of group Admin.", userName, time.TimeOfDay);
+
             }
 
         }
@@ -47,6 +70,10 @@ namespace Server
         
         public void ChangeClientsConsumption(int id, string newConsumption)
         {
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+            string userName = Formatter.ParseName(principal.Identity.Name);
+
+
             if (Thread.CurrentPrincipal.IsInRole("Modify"))
             {
                 string retVal = string.Empty;
@@ -58,23 +85,47 @@ namespace Server
                     OperationException opEX = new OperationException(retVal);
                     throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
                 }
+
+                try
+                {
+                    Audit.AuthorizationSuccess(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             else
             {
-                string name = Thread.CurrentPrincipal.Identity.Name;
+                try
+                {
+                    Audit.AuthorizationFailed(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action, "ChangeClientsConsumption method need Modify permission.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                
                 DateTime time = DateTime.Now;
-                string message = String.Format("Access is denied. User {0} try to call ChangeClientsConsumption() [time : {1}].\n" +
-                    "For this method needs to have a \"MODIFY\" permission.", name, time.TimeOfDay);
+                string message = String.Format("Access is denied. User {0} try to call ChangeClientsConsumption [time : {1}].\n" +
+                    "For this method needs to have a \"Modify\" permission.", userName, time.TimeOfDay);
 
 
                 SecurityException secEx = new SecurityException(message);
                 throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+
             }
         }
 
         
         public void ChangeSmartMeterID(int id, int newID)
         {
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+            string userName = Formatter.ParseName(principal.Identity.Name);
+
+
             if (Thread.CurrentPrincipal.IsInRole("Modify"))
             {
                 string retVal = string.Empty;
@@ -86,23 +137,47 @@ namespace Server
                     OperationException opEX = new OperationException(retVal);
                     throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
                 }
+
+                try
+                {
+                    Audit.AuthorizationSuccess(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             else
             {
-                string name = Thread.CurrentPrincipal.Identity.Name;
+                try
+                {
+                    Audit.AuthorizationFailed(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action, "ChangeSmartMeterID method need Modify permission.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                
                 DateTime time = DateTime.Now;
-                string message = String.Format("Access is denied. User {0} try to call ChangeSmartMeterID() [time : {1}].\n" +
-                    "For this method needs to have a \"MODIFY\" permission.", name, time.TimeOfDay);
+                string message = String.Format("Access is denied. User {0} try to call ChangeSmartMeterID [time : {1}].\n" +
+                    "For this method needs to have a \"Modify\" permission.", userName, time.TimeOfDay);
 
 
                 SecurityException secEx = new SecurityException(message);
                 throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+
             }
         }
 
       
         public void DeleteDataBase()
         {
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+            string userName = Formatter.ParseName(principal.Identity.Name);
+
+
             if (Thread.CurrentPrincipal.IsInRole("Delete"))
             {
                 string retVal = string.Empty;
@@ -114,17 +189,37 @@ namespace Server
                     OperationException opEX = new OperationException(retVal);
                     throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
                 }
+
+                try
+                {
+                    Audit.AuthorizationSuccess(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             else
             {
-                string name = Thread.CurrentPrincipal.Identity.Name;
+                try
+                {
+                    Audit.AuthorizationFailed(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action, "DeleteDataBase method need Delete permission.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
                 DateTime time = DateTime.Now;
-                string message = String.Format("Access is denied. User {0} try to call DeleteDataBase() [time : {1}].\n" +
-                    "For this method needs to have a \"DELETE\" permission.", name, time.TimeOfDay);
+                string message = String.Format("Access is denied. User {0} try to call DeleteDataBase [time : {1}].\n" +
+                    "For this method needs to have a \"Delete\" permission.", userName, time.TimeOfDay);
 
 
                 SecurityException secEx = new SecurityException(message);
                 throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+
             }
         }
 
@@ -137,6 +232,9 @@ namespace Server
       
         public void InstallSmartMeter(int id, string user, string consumption)
         {
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+            string userName = Formatter.ParseName(principal.Identity.Name);
+
 
             if (Thread.CurrentPrincipal.IsInRole("Insert"))
             {
@@ -149,23 +247,46 @@ namespace Server
                     OperationException opEX = new OperationException(retVal);
                     throw new FaultException<OperationException>(opEX,new FaultReason(retVal));
                 }
+
+                try
+                {
+                    Audit.AuthorizationSuccess(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             else
             {
-                string name = Thread.CurrentPrincipal.Identity.Name;
+                try
+                {
+                    Audit.AuthorizationFailed(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action, "InstallSmartMeter method need Insert permission.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                
                 DateTime time = DateTime.Now;
                 string message = String.Format("Access is denied. User {0} try to call InstallSmartMeter method [time : {1}].\n" +
-                    "For this method needs to have a \"INSERT\" permission.", name, time.TimeOfDay);
+                    "For this method needs to have a \"Insert\" permission.", userName, time.TimeOfDay);
 
 
                 SecurityException secEx = new SecurityException(message);
-                throw new FaultException<SecurityException>(secEx,new FaultReason(secEx.Message));
+                throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+
             }
         }
 
       //  [PrincipalPermission(SecurityAction.Demand, Role = "Remove")]
         public void RemoveSmartMeter(int id)
         {
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+            string userName = Formatter.ParseName(principal.Identity.Name);
+
             if (Thread.CurrentPrincipal.IsInRole("Remove"))
             {
                 string retVal = string.Empty;
@@ -177,17 +298,40 @@ namespace Server
                     OperationException opEX = new OperationException(retVal);
                     throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
                 }
+
+                try
+                {
+                    Audit.AuthorizationSuccess(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             else
             {
-                string name = Thread.CurrentPrincipal.Identity.Name;
+
+
+                try
+                {
+                    Audit.AuthorizationFailed(userName,
+                        OperationContext.Current.IncomingMessageHeaders.Action, "RemoveSmartMeter() method need Remove permission.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                
+
                 DateTime time = DateTime.Now;
                 string message = String.Format("Access is denied. User {0} try to call RemoveSmartMeter() method [time : {1}].\n" +
-                    "For this method needs to have a \"REMOVE\" permission.", name, time.TimeOfDay);
+                    "For this method needs to have a \"Remove\" permission.", userName, time.TimeOfDay);
 
 
                 SecurityException secEx = new SecurityException(message);
                 throw new FaultException<SecurityException>(secEx, new FaultReason(secEx.Message));
+
             }
         }
 

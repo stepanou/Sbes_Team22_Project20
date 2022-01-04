@@ -28,6 +28,14 @@ namespace Server
             policies.Add(new CustomAuthorizationPolicy());
             host.Authorization.ExternalAuthorizationPolicies = policies.AsReadOnly();
 
+            // deo za auditing
+            //ServiceSecurityAuditBehavior newAudit = new ServiceSecurityAuditBehavior();
+            //newAudit.AuditLogLocation = AuditLogLocation.Application;
+            //newAudit.ServiceAuthorizationAuditLevel = AuditLevel.SuccessOrFailure;
+
+            //host.Description.Behaviors.Remove<ServiceSecurityAuditBehavior>();
+            //host.Description.Behaviors.Add(newAudit);
+
             host.Open();
             Console.WriteLine("SmartMeter Service is opened. Press <enter> to finish...");
             Console.ReadLine();
