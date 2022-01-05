@@ -26,8 +26,6 @@ namespace Server
             ServiceHost host = new ServiceHost(typeof(MainService));
             host.AddServiceEndpoint(typeof(IMainService), binding, address);
 
-            
-
             // podesavamo custom polisu, odnosno nas objekat principala
             host.Authorization.PrincipalPermissionMode = PrincipalPermissionMode.Custom;
             List<IAuthorizationPolicy> policies = new List<IAuthorizationPolicy>();
