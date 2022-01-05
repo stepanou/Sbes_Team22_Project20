@@ -22,3 +22,15 @@ C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\Server\obj\Debug\Se
 C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CopyComplete
 C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\Server\obj\Debug\Server.exe
 C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\Server\obj\Debug\Server.pdb
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\bin\Debug\Server.exe.config
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\bin\Debug\Server.exe
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\bin\Debug\Server.pdb
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\bin\Debug\Common.dll
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\bin\Debug\SecurityManager.dll
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\bin\Debug\Common.pdb
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\bin\Debug\SecurityManager.pdb
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.AssemblyReference.cache
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CopyComplete
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.exe
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.pdb
