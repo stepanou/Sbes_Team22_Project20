@@ -42,6 +42,14 @@ namespace User
                     {
                         case 1:
                             {
+                                Console.WriteLine("1. Calculate electricity consumption price");
+                                Console.Write("\tID= ");
+                                id = Int32.Parse(Console.ReadLine());
+
+                                Console.Write("\tConsumption= ");
+                                consumption = Console.ReadLine();
+
+                                Console.WriteLine(proxy.GetConsumption(id,consumption));
                                 break;
                             }
                         case 2:

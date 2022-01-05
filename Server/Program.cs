@@ -38,12 +38,19 @@ namespace Server
 
             host.Open();
             Console.WriteLine("SmartMeter Service is opened. Press <enter> to finish...");
+
+            NetTcpBinding binding2 = new NetTcpBinding();
+            string address2 = "net.tcp://localhost:11012/LoadBalancer";
+            ServiceHost host2 = new ServiceHost(typeof(LoadBalancer));
+            host2.AddServiceEndpoint(typeof(ILoadBalancer), binding2, address2);
+            host2.AddServiceEndpoint(typeof(ICalculatePrice), binding2, address2);
+
+            host2.Open();
+            Console.WriteLine("LoadBalancer Service is opened. Press <enter> to finish...");
+
             Console.ReadLine();
 
             host.Close();
-
-
-
         }
     }
 }

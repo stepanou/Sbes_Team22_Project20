@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICalculatePrice.cs" />
+    <Compile Include="ICallBackContract.cs" />
+    <Compile Include="ILoadBalancer.cs" />
     <Compile Include="IMainService.cs" />
     <Compile Include="OperationException.cs" />
     <Compile Include="SecurityException.cs" />

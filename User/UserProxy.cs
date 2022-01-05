@@ -36,15 +36,15 @@ namespace User
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
                 Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
             }
             catch (FaultException<OperationException> e)
             {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
                 Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
             }
             catch (Exception ex)
             {
@@ -65,15 +65,15 @@ namespace User
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
                 Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
             }
             catch (FaultException<OperationException> e)
             {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
                 Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
             }
             catch (Exception ex)
             {
@@ -94,15 +94,15 @@ namespace User
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
                 Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
             }
             catch (FaultException<OperationException> e)
             {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
                 Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
             }
             catch (Exception ex)
             {
@@ -124,15 +124,15 @@ namespace User
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
                 Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
             }
             catch (FaultException<OperationException> e)
             {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
                 Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
             }
             catch (Exception ex)
             {
@@ -143,7 +143,7 @@ namespace User
             }
         }
 
-        public float GetConsumption(int id, string clientConsumption)
+        public string GetConsumption(int id, string clientConsumption)
         {
 
             try
@@ -154,24 +154,24 @@ namespace User
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
                 Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
-                return 0;
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
+                return string.Format("Security Error: {0}", e.Detail.Message);
             }
             catch (FaultException<OperationException> e)
             {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
                 Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
-                return 0;
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
+                return string.Format("Operation Error: {0}", e.Detail.Message);
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
                 this.Dispose();
-                return 0;
+                return ex.Message;
             }
         }
 
@@ -186,15 +186,15 @@ namespace User
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
                 Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
             }
             catch (FaultException<OperationException> e)
             {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
                 Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
             }
             catch (Exception ex)
             {
@@ -216,15 +216,15 @@ namespace User
             }
             catch (FaultException<SecurityException> e)
             {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
                 Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x");
+                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
             }
             catch (FaultException<OperationException> e)
             {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
                 Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !");
+                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
             }
             catch (Exception ex)
             {

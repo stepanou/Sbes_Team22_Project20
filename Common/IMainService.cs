@@ -13,7 +13,7 @@ namespace Common
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        float GetConsumption(int id, string clientConsumption); //Customer
+        string GetConsumption(int id, string clientConsumption); //Customer
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]

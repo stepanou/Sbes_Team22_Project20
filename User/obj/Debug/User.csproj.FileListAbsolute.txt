@@ -8,3 +8,13 @@ C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\obj\Debug\User.csprojAssembly
 C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\bin\Debug\Common.dll
 C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\bin\Debug\Common.pdb
 C:\Users\steFUN\Desktop\Sbes_Team22_Project20\User\obj\Debug\User.csproj.CopyComplete
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\obj\Debug\User.csprojAssemblyReference.cache
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\obj\Debug\User.csproj.CoreCompileInputs.cache
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\obj\Debug\User.exe
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\obj\Debug\User.pdb
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\bin\Debug\User.exe.config
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\bin\Debug\User.exe
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\bin\Debug\User.pdb
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\bin\Debug\Common.dll
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\bin\Debug\Common.pdb
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\obj\Debug\User.csproj.CopyComplete
