@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SecurityManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +13,13 @@ namespace Worker
     {
         static void Main(string[] args)
         {
+            string srvCertCN = "Server";//kako god damo sertifikatu za server naziv
 
             NetTcpBinding binding = new NetTcpBinding();
+            binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
-            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:11012/LoadBalancer"));
+            X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
+            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:11012/LoadBalancer"), new X509CertificateEndpointIdentity(srvCert));
 
             CallbackContract workerContract = new CallbackContract();
 

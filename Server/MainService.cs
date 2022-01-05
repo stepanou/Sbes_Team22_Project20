@@ -257,15 +257,15 @@ namespace Server
                     throw new FaultException<OperationException>(opEX, new FaultReason(retVal));
                 }
                 
-                try
-                {
-                    Audit.AuthorizationSuccess(userName,
-                        OperationContext.Current.IncomingMessageHeaders.Action);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                    //try
+                    //{
+                    //    Audit.AuthorizationSuccess(userName,
+                    //        OperationContext.Current.IncomingMessageHeaders.Action);
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    Console.WriteLine(e.Message);
+                    //}
 
                 string address = "net.tcp://localhost:11012/LoadBalancer";
                 ChannelFactory<ICalculatePrice> channelFactory = new ChannelFactory<ICalculatePrice>(new NetTcpBinding(), new EndpointAddress(new Uri(address)));

@@ -15,3 +15,13 @@ C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\Worker\obj\Debug\Wo
 C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csproj.CopyComplete
 C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\Worker\obj\Debug\Worker.exe
 C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\Worker\obj\Debug\Worker.pdb
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\bin\Debug\Worker.exe.config
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\bin\Debug\Worker.exe
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\bin\Debug\Worker.pdb
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\bin\Debug\Common.dll
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\bin\Debug\Common.pdb
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csproj.AssemblyReference.cache
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csproj.CoreCompileInputs.cache
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csproj.CopyComplete
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.exe
+C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.pdb

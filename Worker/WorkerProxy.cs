@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using SecurityManager;
 
 namespace Worker
 {
@@ -17,9 +20,11 @@ namespace Worker
 
         public WorkerProxy(NetTcpBinding binding, EndpointAddress address, CallbackContract callback): base(callback,binding,address)
         {
+            string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
 
-            //Za sertifikate...
-
+            Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.ChainTrust;
+            Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
+            Credentials.ClientCertificate.Certificate = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, cltCertCN);
 
             factory = this.CreateChannel();
         }

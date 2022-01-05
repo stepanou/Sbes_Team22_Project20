@@ -12,6 +12,7 @@ namespace Worker
     {
         public string DoWork(string consumption)
         {
+           
             double greenZoneCost = Double.Parse(ConfigurationManager.AppSettings["greenZoneCost"]);
             double blueZoneCost = Double.Parse(ConfigurationManager.AppSettings["blueZoneCost"]);
             double redZoneCost = Double.Parse(ConfigurationManager.AppSettings["redZoneCost"]);
