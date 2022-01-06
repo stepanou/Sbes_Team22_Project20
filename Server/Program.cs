@@ -21,6 +21,11 @@ namespace Server
 
             NetTcpBinding binding = new NetTcpBinding();
 
+            binding.CloseTimeout = new TimeSpan(0, 10, 0);
+            binding.SendTimeout = new TimeSpan(0, 10, 0);
+            binding.ReceiveTimeout = new TimeSpan(0, 10, 0);
+            binding.OpenTimeout = new TimeSpan(0, 10, 0);
+
             string address = "net.tcp://localhost:12012/MainService";
 
             ServiceHost host = new ServiceHost(typeof(MainService));
@@ -44,6 +49,12 @@ namespace Server
             Console.WriteLine("SmartMeter Service is opened. Press <enter> to finish...");
 
             NetTcpBinding binding2 = new NetTcpBinding();
+            binding2.CloseTimeout = new TimeSpan(0, 10, 0);
+            binding2.SendTimeout = new TimeSpan(0, 10, 0);
+            binding2.ReceiveTimeout = new TimeSpan(0, 10, 0);
+            binding2.OpenTimeout = new TimeSpan(0, 10, 0);
+
+
             binding2.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
             string address2 = "net.tcp://localhost:11012/LoadBalancer";

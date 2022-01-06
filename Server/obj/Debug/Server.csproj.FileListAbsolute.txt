@@ -38,3 +38,15 @@ C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Server\obj\Debug\Server
 C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Server\obj\Debug\Server.exe
 C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Server\obj\Debug\Server.pdb
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\bin\Debug\Server.exe.config
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\bin\Debug\Server.exe
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\bin\Debug\Server.pdb
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\bin\Debug\Common.dll
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\bin\Debug\SecurityManager.dll
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\bin\Debug\Common.pdb
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\bin\Debug\SecurityManager.pdb
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\obj\Debug\Server.csprojAssemblyReference.cache
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CopyComplete
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\obj\Debug\Server.exe
+C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\Server\obj\Debug\Server.pdb

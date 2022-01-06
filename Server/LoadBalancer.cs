@@ -13,35 +13,38 @@ namespace Server
     public class LoadBalancer : ILoadBalancer, ICalculatePrice
     {
 
-        private  Dictionary<string, ICallBackContract> numberOfWorkers = new Dictionary<string, ICallBackContract>();
-        private List<string> Id = new List<string>();
-        private Random random = new Random();
+        private Dictionary<string, ICallBackContract> freeWorkers = new Dictionary<string, ICallBackContract>();
+        private Dictionary<string, ICallBackContract> busyWorkers = new Dictionary<string, ICallBackContract>();
 
         public string CalculatePrice(string consumption)
         {
-            if (numberOfWorkers.Count < 1)
+            if (freeWorkers.Count < 1)
             {
                 return "There is no available resorces for calculation.";
             }
 
-           // Random random = new Random();
-            //random.Next(0, Id.Count - 1);
-
-            string[] worker = Id.ToArray();
             string retVal = string.Empty;
 
-            // numberOfWorkers[worker[random.Next(0, worker.Length - 1)]].DoWork(consumption);
-            retVal = numberOfWorkers[worker[0]].DoWork(consumption);
-            return retVal;    
+            KeyValuePair<string, ICallBackContract> worker = freeWorkers.First();
+            freeWorkers.Remove(worker.Key);
+
+            busyWorkers.Add(worker.Key, worker.Value);
+
+            retVal = worker.Value.DoWork(consumption);
+            busyWorkers.Remove(worker.Key);
+            freeWorkers.Add(worker.Key, worker.Value);
+
+
+            return retVal;
 
         }
 
         public void RegisterWorker(string workerID)
         {
-            if (!this.numberOfWorkers.ContainsKey(workerID))
+            if (!this.freeWorkers.ContainsKey(workerID) && !this.busyWorkers.ContainsKey(workerID))
             {
-                this.numberOfWorkers.Add(workerID, OperationContext.Current.GetCallbackChannel<ICallBackContract>());
-                Id.Add(workerID);
+                this.freeWorkers.Add(workerID, OperationContext.Current.GetCallbackChannel<ICallBackContract>());
+
                 Console.WriteLine($"{workerID} registered");
             }
             else
@@ -52,10 +55,10 @@ namespace Server
 
         public void UnregisterWorker(string workerID)
         {
-            if (this.numberOfWorkers.ContainsKey(workerID))
+            if (this.freeWorkers.ContainsKey(workerID) || this.busyWorkers.ContainsKey(workerID))
             {
-                this.numberOfWorkers.Remove(workerID);
-                Id.Remove(workerID);
+                this.freeWorkers.Remove(workerID);
+
                 Console.WriteLine($"{workerID} Unregistered");
             }
             else

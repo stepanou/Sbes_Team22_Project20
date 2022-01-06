@@ -12,6 +12,12 @@ namespace User
         static void Main(string[] args)
         {
             NetTcpBinding binding = new NetTcpBinding();
+            binding.CloseTimeout = new TimeSpan(0, 10, 0);
+            binding.SendTimeout = new TimeSpan(0, 10, 0);
+            binding.ReceiveTimeout = new TimeSpan(0, 10, 0);
+            binding.OpenTimeout = new TimeSpan(0, 10, 0);
+
+
             string address = "net.tcp://localhost:12012/MainService";
 
             binding.Security.Mode = SecurityMode.Transport;

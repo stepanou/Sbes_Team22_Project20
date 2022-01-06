@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Common;
 
@@ -20,6 +21,16 @@ namespace Worker
 
             int greenZoneUpperLimit = Int32.Parse(ConfigurationManager.AppSettings["greenZoneUpperLimit"]);
             int blueZoneUpperLimit = Int32.Parse(ConfigurationManager.AppSettings["blueZoneUpperLimit"]);
+
+
+
+            Console.WriteLine($"Calculating consumption :");
+            for (int i = 0; i < 15; i++)
+            {
+                Console.WriteLine(i);
+                Thread.Sleep(1000);
+            }
+
 
             if (amount <= greenZoneUpperLimit)
             {
