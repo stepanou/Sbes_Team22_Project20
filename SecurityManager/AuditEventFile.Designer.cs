@@ -61,15 +61,6 @@ namespace SecurityManager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User {0} failed to authenticated. Reason: {1}..
-        /// </summary>
-        internal static string AuthenticationFailure {
-            get {
-                return ResourceManager.GetString("AuthenticationFailure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to User {0} is successfully authenticated..
         /// </summary>
         internal static string AuthenticationSuccess {

@@ -34,3 +34,7 @@ C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.csp
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CopyComplete
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.exe
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Server\obj\Debug\Server.pdb
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Server\obj\Debug\Server.csprojAssemblyReference.cache
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Server\obj\Debug\Server.exe
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Server\obj\Debug\Server.pdb

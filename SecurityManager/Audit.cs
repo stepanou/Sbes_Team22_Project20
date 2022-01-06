@@ -35,6 +35,8 @@ namespace SecurityManager
 
         public static void AuthenticationSuccess(string userName)
         {
+            //TO DO
+
             if (customLog != null)
             {
                 string UserAuthenticationSuccess =
@@ -52,6 +54,7 @@ namespace SecurityManager
 
         public static void AuthorizationSuccess(string userName, string serviceName)
         {
+            //TO DO
             if (customLog != null)
             {
                 string AuthorizationSuccess =
@@ -67,23 +70,12 @@ namespace SecurityManager
             }
         }
 
-        public static void AuthenticationFailed(string userName, string reason)
-        {
-            if (customLog != null)
-            {
-                string AuthenticationFailed =
-                    AuditEvents.AuthenticationFailed;
-                string message = String.Format(AuthenticationFailed,
-                    userName, reason);
-                customLog.WriteEntry(message);
-            }
-            else
-            {
-                throw new ArgumentException(string.Format("Error while trying to write event (eventid = {0}) to event log.",
-                    (int)AuditEventTypes.AuthorizationFailure));
-            }
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="serviceName"> should be read from the OperationContext as follows: OperationContext.Current.IncomingMessageHeaders.Action</param>
+        /// <param name="reason">permission name</param>
         public static void AuthorizationFailed(string userName, string serviceName, string reason)
         {
             if (customLog != null)

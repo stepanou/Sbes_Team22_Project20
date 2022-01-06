@@ -28,3 +28,13 @@ C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\User\obj\Debug\User.csproj.
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\User\obj\Debug\User.csproj.CopyComplete
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\User\obj\Debug\User.exe
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\User\obj\Debug\User.pdb
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\bin\Debug\User.exe.config
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\bin\Debug\User.exe
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\bin\Debug\User.pdb
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\bin\Debug\Common.dll
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\bin\Debug\Common.pdb
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\obj\Debug\User.csprojAssemblyReference.cache
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\obj\Debug\User.csproj.CoreCompileInputs.cache
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\obj\Debug\User.csproj.CopyComplete
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\obj\Debug\User.exe
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\User\obj\Debug\User.pdb

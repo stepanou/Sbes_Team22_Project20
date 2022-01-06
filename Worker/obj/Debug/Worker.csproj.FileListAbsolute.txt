@@ -25,3 +25,7 @@ C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csp
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csproj.CopyComplete
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.exe
 C:\Users\Home\Documents\GitHub\Sbes_Team22_Project20\Worker\obj\Debug\Worker.pdb
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csprojAssemblyReference.cache
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Worker\obj\Debug\Worker.csproj.CoreCompileInputs.cache
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Worker\obj\Debug\Worker.exe
+C:\Users\Kosta\Documents\Faks\SBES\Sbes_Team22_Project20\Worker\obj\Debug\Worker.pdb

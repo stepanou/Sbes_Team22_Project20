@@ -11,9 +11,8 @@ namespace SecurityManager
     public enum AuditEventTypes
     {
         AuthenticationSuccess = 0,
-        AuthenticationFailed = 1,
-        AuthorizationSuccess = 2,
-        AuthorizationFailure = 3
+        AuthorizationSuccess = 1,
+        AuthorizationFailure = 2
     }
 
     public class AuditEvents
@@ -37,11 +36,12 @@ namespace SecurityManager
                 }
             }
         }
-        
+
         public static string AuthenticationSuccess
         {
             get
             {
+                // TO DO
                 return ResourceMgr.GetString(AuditEventTypes.AuthenticationSuccess.ToString());
             }
         }
@@ -50,15 +50,8 @@ namespace SecurityManager
         {
             get
             {
+                //TO DO
                 return ResourceMgr.GetString(AuditEventTypes.AuthorizationSuccess.ToString());
-            }
-        }
-
-        public static string AuthenticationFailed
-        {
-            get
-            {
-                return ResourceMgr.GetString(AuditEventTypes.AuthenticationFailed.ToString());
             }
         }
 
@@ -66,6 +59,7 @@ namespace SecurityManager
         {
             get
             {
+                //TO DO
                 return ResourceMgr.GetString(AuditEventTypes.AuthorizationFailure.ToString());
             }
         }
