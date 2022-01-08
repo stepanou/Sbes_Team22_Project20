@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Principal;
 
 namespace Worker
 {
@@ -13,7 +14,7 @@ namespace Worker
     {
         static void Main(string[] args)
         {
-            string srvCertCN = "Server";//kako god damo sertifikatu za server naziv
+            string srvCertCN = "lignjoslav";//kako god damo sertifikatu za server naziv
 
             NetTcpBinding binding = new NetTcpBinding();
             binding.CloseTimeout = new TimeSpan(0, 10, 0);
@@ -21,11 +22,11 @@ namespace Worker
             binding.ReceiveTimeout = new TimeSpan(0, 10, 0);
             binding.OpenTimeout = new TimeSpan(0, 10, 0);
 
-
+            
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
             X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
-            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:11012/LoadBalancer"), new X509CertificateEndpointIdentity(srvCert));
+            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:11012/LoadBalancer"),new X509CertificateEndpointIdentity(srvCert));
 
             CallbackContract workerContract = new CallbackContract();
 
@@ -37,16 +38,24 @@ namespace Worker
             using (WorkerProxy workerProxy = new WorkerProxy(instanceContext,binding,address))
             {
                 Console.WriteLine("Worker id: " + workerProxy.ID);
+                Console.WriteLine(WindowsIdentity.GetCurrent().Name);
 
                 int operation = 0;
 
                 do
                 {
-
                     Menu();
                     Console.Write("Choose operation >> ");
-                    operation = int.Parse(Console.ReadLine());
-
+                    if (!Int32.TryParse(Console.ReadLine(), out operation))
+                    {
+                        Console.WriteLine("Wrong Input! Insert number from 1 to 3.");
+                        continue;
+                    }
+                    if (operation == 3)
+                    {
+                        workerProxy.UnregisterWorker(workerProxy.ID);
+                        break;
+                    }
                     switch (operation)
                     {
 
@@ -61,19 +70,22 @@ namespace Worker
                                 break;
                             }
 
-
                         default:
                             break;
                     }
 
+                    
 
-                } while (operation > 0 || operation < 3);
+                    if (workerProxy.State.Equals(CommunicationState.Faulted))
+                    {
+                        break;
+                    }
 
-
-                Console.ReadKey();
+                } while (true);
             }
 
-
+            Console.WriteLine("Press ENTER to close");
+            Console.ReadKey();
 
         }
         public static void Menu()

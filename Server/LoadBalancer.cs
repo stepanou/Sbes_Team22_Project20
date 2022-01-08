@@ -9,7 +9,7 @@ using System.Collections.Concurrent;
 
 namespace Server
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant,IncludeExceptionDetailInFaults = true)]
     public class LoadBalancer : ILoadBalancer, ICalculatePrice
     {
 
@@ -55,7 +55,7 @@ namespace Server
 
         public void UnregisterWorker(string workerID)
         {
-            if (this.freeWorkers.ContainsKey(workerID) || this.busyWorkers.ContainsKey(workerID))
+            if (this.freeWorkers.ContainsKey(workerID))
             {
                 this.freeWorkers.Remove(workerID);
 

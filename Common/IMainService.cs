@@ -13,28 +13,28 @@ namespace Common
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        string GetConsumption(int id, string clientConsumption); //Customer
+        string GetConsumption(byte[] idAndConsumption); //Customer
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        void ChangeSmartMeterID(int id, int newID); //Operator
+        void ChangeSmartMeterID(byte[] idAndNewId); //Operator
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        void ChangeClientsConsumption(int id, string newConsumption); //Operator
+        void ChangeClientsConsumption(byte[] idAndNewConsumption); //Operator
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        void InstallSmartMeter(int id, string user, string consumption); //Admin
+        void InstallSmartMeter(byte[] idUserConsumption); //Admin
 
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
         [FaultContract(typeof(OperationException))]
-        void RemoveSmartMeter(int id); //Admin
+        void RemoveSmartMeter(byte[] id); //Admin
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]

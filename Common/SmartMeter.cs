@@ -12,16 +12,16 @@ namespace Common
     {
         private int id;
         private string user;
-        private float consumption;
+        private double consumption;
 
         [DataMember]
         public int Id { get => id; set => id = value; }
         [DataMember]
         public string User { get => user; set => user = value; }
         [DataMember]
-        public float Consumption { get => consumption; set => consumption = value; }
+        public double Consumption { get => consumption; set => consumption = value; }
 
-        public SmartMeter(int id, string user, float consumption)
+        public SmartMeter(int id, string user, double consumption)
         {
             Id = id;
             User = user;

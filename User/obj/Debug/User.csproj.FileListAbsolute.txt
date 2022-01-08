@@ -48,3 +48,5 @@ C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\User\obj\Debug\User.csproj.
 C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\User\obj\Debug\User.csproj.CopyComplete
 C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\User\obj\Debug\User.exe
 C:\Users\steFUN\Desktop\blabla\Sbes_Team22_Project20\User\obj\Debug\User.pdb
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\bin\Debug\SecurityManager.dll
+C:\Users\steFUN\Desktop\New folder (2)\Sbes_Team22_Project20\User\bin\Debug\SecurityManager.pdb

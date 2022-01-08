@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AES_Symm_Algorithm.cs" />
     <Compile Include="Audit.cs" />
     <Compile Include="AuditEventFile.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -51,6 +53,7 @@
     </Compile>
     <Compile Include="AuditEvents.cs" />
     <Compile Include="CertManager.cs" />
+    <Compile Include="CertValidator.cs" />
     <Compile Include="CustomAuthorizationPolicy.cs" />
     <Compile Include="CustomPrincipal.cs" />
     <Compile Include="Formatter.cs" />
@@ -61,6 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RolesConfigFile.resx</DependentUpon>
     </Compile>
+    <Compile Include="SecretKey.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AuditEventFile.resx">

@@ -20,36 +20,25 @@ namespace Worker
 
         public WorkerProxy(NetTcpBinding binding, EndpointAddress address, CallbackContract callback): base(callback,binding,address)
         {
-            string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
-
-            Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.ChainTrust;
-            Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
-            Credentials.ClientCertificate.Certificate = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, cltCertCN);
-
+           
             factory = this.CreateChannel();
         }
 
         public WorkerProxy(InstanceContext instance,NetTcpBinding netTcp,EndpointAddress endpoint): base(instance,netTcp,endpoint)
         {
-
-
+            string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
+            
+            
+            Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.Custom;
+            Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new CertValidator();
+            Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
+            Credentials.ClientCertificate.Certificate = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, cltCertCN);
+            
             factory = this.CreateChannel();
         }
 
 
-        public void Dispose()
-        {
-            if (factory != null)
-            {
-
-                factory = null;
-            }
-
-            Close();
-        }
-
-
-
+        
         public void RegisterWorker(string workerID)
         {
             try
@@ -58,24 +47,12 @@ namespace Worker
                 factory.RegisterWorker(workerID);
 
             }
-            catch (FaultException<SecurityException> e)
-            {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
-                Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
-            }
-            catch (FaultException<OperationException> e)
-            {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
-                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
-            }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                this.Dispose();
 
+                
             }
         }
 
@@ -87,25 +64,22 @@ namespace Worker
                 factory.UnregisterWorker(workerID);
 
             }
-            catch (FaultException<SecurityException> e)
-            {
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
-                Console.WriteLine("Security Error: {0}", e.Detail.Message);
-                Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
-            }
-            catch (FaultException<OperationException> e)
-            {
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
-                Console.WriteLine("Operation Error: {0}", e.Detail.Message);
-                Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
-            }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
-                this.Dispose();
 
             }
+        }
+        public void Dispose()
+        {
+            if (factory != null)
+            {
+
+                factory = null;
+            }
+
+            this.Close();
         }
     }
 }

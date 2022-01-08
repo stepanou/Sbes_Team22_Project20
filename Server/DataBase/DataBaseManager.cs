@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Common;
@@ -16,14 +18,12 @@ namespace Server.DataBase
         private const string dataBasePath = @"\DataBase.txt";
         private const string archivePath = @"\Archive.txt";
         private static int num;
-        private static object lockObject;
         private const char separator = ';';
 
 
         static DataBaseManager()
         {
             num = 0;
-            lockObject = new object();
             DataBaseManager.CreateDB();
         }
 
@@ -54,12 +54,8 @@ namespace Server.DataBase
             string[] lines = archivePath.Split('.');
             string tempPath = lines[0] + (++num).ToString() + "." + lines[1];
 
-
-            Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
-
             try
             {
-
                 while (true)
                 {
                     if (File.Exists(DirectoryConfig.Instance.ArchiveDirectory + tempPath))
@@ -73,26 +69,14 @@ namespace Server.DataBase
                 }
 
                 streamReader = new StreamReader(DirectoryConfig.Instance.DataBaseDirecotry + dataBasePath);
+            
+                streamWriter = File.CreateText(DirectoryConfig.Instance.ArchiveDirectory + tempPath);
 
-                IIdentity identity = Thread.CurrentPrincipal.Identity;
-                WindowsIdentity windowsIdentity = identity as WindowsIdentity;
-
-                Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
-
-                using (windowsIdentity.Impersonate())
+                while ((line = streamReader.ReadLine()) != null)
                 {
-                    Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
-
-                    streamWriter = File.CreateText(DirectoryConfig.Instance.ArchiveDirectory + tempPath);
-
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        streamWriter.WriteLine(line);
-                    } 
-                }
-
-                Console.WriteLine($"Process Identity:{WindowsIdentity.GetCurrent().Name}");
-
+                  streamWriter.WriteLine(line);
+                } 
+                
                 streamReader.Close();
                 DeleteDB();
                 streamWriter.Close();
@@ -142,6 +126,7 @@ namespace Server.DataBase
 
             string line = String.Empty;
             string[] lines = new string[3];
+            
             bool exist = false;
 
             try
@@ -168,11 +153,9 @@ namespace Server.DataBase
                     streamWriter = File.AppendText(DirectoryConfig.Instance.DataBaseDirecotry + dataBasePath);
                     lines[0] = id;
                     lines[1] = user;
-                    lines[2] = consumption;
+                    lines[2] = consumption.Trim(new char[] { '\uFEFF', '\u200B','\0' });
 
                     streamWriter.WriteLine(String.Join(separator.ToString(), lines));
-
-
 
                     return string.Empty;
                 }
@@ -216,7 +199,7 @@ namespace Server.DataBase
 
                     if (lines[0].Equals(id))
                     {
-                        tempLines[0] = newID;
+                        tempLines[0] = newID.Trim(new char[] { '\uFEFF', '\u200B', '\0' });
                         tempLines[1] = lines[1];
                         tempLines[2] = lines[2];
 
@@ -273,7 +256,7 @@ namespace Server.DataBase
                     {
                         tempLines[0] = lines[0];
                         tempLines[1] = lines[1];
-                        tempLines[2] = consumption;
+                        tempLines[2] = consumption.Trim(new char[] { '\uFEFF', '\u200B', '\0' });
 
                         continue;
                     }
@@ -316,6 +299,9 @@ namespace Server.DataBase
             string line = string.Empty;
             string[] lines = new string[3];
             string retVal = string.Empty;
+            bool exist = false;
+
+            string correctedId = id.Trim(new char[] { '\uFEFF', '\u200B', '\0' });
 
             try
             {
@@ -325,9 +311,9 @@ namespace Server.DataBase
                 {
                     lines = line.Split(separator);
 
-                    if (lines[0].Equals(id))
+                    if (lines[0].Equals(correctedId))
                     {
-
+                        exist = true;
                         continue;
                     }
                     stringBuilder.AppendLine(line);
@@ -336,7 +322,15 @@ namespace Server.DataBase
 
                 File.WriteAllText(DirectoryConfig.Instance.DataBaseDirecotry + dataBasePath, stringBuilder.ToString());
 
-                return String.Format("Entity with id {0} doesn't exist.", id);
+                if (exist)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return String.Format("Entity with id {0} doesn't exist.", id);
+                }
+                
             }
             catch (Exception ex)
             {
@@ -372,7 +366,26 @@ namespace Server.DataBase
                     if (lines[0].Equals(id))
                     {
 
-                        smartMeter = new SmartMeter(Int32.Parse(id), lines[1], float.Parse(lines[2]));
+                        double amount = 0;
+                        var cultureInfo = CultureInfo.InvariantCulture;
+                        // if the first regex matches, the number string is in US culture
+                        if (Regex.IsMatch(lines[2], @"^(:?[\d,]+\.)*\d+$"))
+                        {
+                            cultureInfo = new CultureInfo("en-US");
+                        }
+                        // if the second regex matches, the number string is in de culture
+                        else if (Regex.IsMatch(lines[2], @"^(:?[\d.]+,)*\d+$"))
+                        {
+                            cultureInfo = new CultureInfo("de-DE");
+                        }
+                        NumberStyles styles = NumberStyles.Number;
+                        bool isDouble = double.TryParse(lines[2], styles, cultureInfo, out amount);
+
+                        if (isDouble)
+                        {
+                            smartMeter = new SmartMeter(Int32.Parse(id), lines[1], amount);
+                        }
+                        
                         break;
                     }
                 }

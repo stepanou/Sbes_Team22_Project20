@@ -4,6 +4,9 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using SecurityManager;
+using System.Security.Principal;
+using System.Configuration;
 
 namespace User
 {
@@ -22,18 +25,24 @@ namespace User
 
             binding.Security.Mode = SecurityMode.Transport;
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
-            binding.Security.Transport.ProtectionLevel = System.Net.Security.ProtectionLevel.EncryptAndSign; // za Mode.Message ProtectionLevel ne postoji, why?
+            binding.Security.Transport.ProtectionLevel = System.Net.Security.ProtectionLevel.EncryptAndSign;
 
 
             EndpointAddress endpointAddress = new EndpointAddress(new Uri(address));//,
                                                                                     //   EndpointIdentity.CreateUpnIdentity("wcfServer"));
+           
+            string keyFile = Formatter.ParseName(WindowsIdentity.GetCurrent().Name) + ".txt";
+            string eSecretKey = SecretKey.GenerateKey();
+            SecretKey.StoreKey(eSecretKey, ConfigurationManager.AppSettings["SecretKeyDirectory"],keyFile); 
+
 
             int operation = 0;
             int id = 0;
             int newId = 0;
-            string consumption = string.Empty;
-            string consumer = string.Empty;
-
+            string dataForEncryption = string.Empty;
+            const string separator = ";";
+            string[] tempStr = new string[3];
+            byte[] cipherText = null;
 
             using (UserProxy proxy = new UserProxy(binding,endpointAddress))
             {
@@ -41,21 +50,34 @@ namespace User
                 {
                     Menu();
                     Console.Write("Choose operation>> ");
-                    operation = Int32.Parse(Console.ReadLine());
-                   // Console.WriteLine("\n");
 
+                    if (!Int32.TryParse(Console.ReadLine(), out operation))
+                    {
+                        Console.WriteLine("Wrong Input! Insert number from 1 to 8");
+                        continue;
+                    }
+                    if (operation == 8)
+                    {
+                        break;
+                    }
                     switch (operation)
                     {
                         case 1:
                             {
                                 Console.WriteLine("1. Calculate electricity consumption price");
                                 Console.Write("\tID= ");
-                                id = Int32.Parse(Console.ReadLine());
+                                Int32.TryParse(Console.ReadLine(),out id);
+                                tempStr[0] = id.ToString();
 
                                 Console.Write("\tConsumption= ");
-                                consumption = Console.ReadLine();
+                                
+                                tempStr[1] = Console.ReadLine();
+                                dataForEncryption = string.Join(separator, tempStr);
 
-                                Console.WriteLine(proxy.GetConsumption(id,consumption));
+
+                                 cipherText = AES_Symm_Algorithm.EncryptFile(dataForEncryption, eSecretKey);
+
+                                Console.WriteLine(proxy.GetConsumption(cipherText));
                                 break;
                             }
                         case 2:
@@ -63,11 +85,16 @@ namespace User
                                 Console.WriteLine("2. Change SmartMeter's ID number");
                                 Console.Write("\tID= ");
                                 id = Int32.Parse(Console.ReadLine());
+                                tempStr[0] = id.ToString();
 
                                 Console.Write("\tNew ID= ");
                                 newId = Int32.Parse(Console.ReadLine());
+                                tempStr[1] = newId.ToString();
 
-                                proxy.ChangeSmartMeterID(id, newId);
+                                dataForEncryption = string.Join(separator, tempStr);
+                                cipherText = AES_Symm_Algorithm.EncryptFile(dataForEncryption, eSecretKey);
+
+                                proxy.ChangeSmartMeterID(cipherText);
                                 break;
                             }
                         case 3:
@@ -75,11 +102,15 @@ namespace User
                                 Console.WriteLine("3. Change clients electricity consumption");
                                 Console.Write("\tID= ");
                                 id = Int32.Parse(Console.ReadLine());
+                                tempStr[0] = id.ToString();
 
                                 Console.Write("\tConsumption= ");
-                                consumption = Console.ReadLine();
+                                tempStr[1] = Console.ReadLine();
 
-                                proxy.ChangeClientsConsumption(id, consumption);
+                                dataForEncryption = string.Join(separator, tempStr);
+                                cipherText = AES_Symm_Algorithm.EncryptFile(dataForEncryption, eSecretKey);
+
+                                proxy.ChangeClientsConsumption(cipherText);
                                 break;
                             }
                         case 4:
@@ -87,14 +118,18 @@ namespace User
                                 Console.WriteLine("4. Install new SmartMeter");
                                 Console.Write("\tID= ");
                                 id = Int32.Parse(Console.ReadLine());
+                                tempStr[0] = id.ToString();
 
                                 Console.Write("\tConsumer= ");
-                                consumer = Console.ReadLine();
+                                tempStr[1] = Console.ReadLine();
 
                                 Console.Write("\tConsumption= ");
-                                consumption = Console.ReadLine();
+                                tempStr[2] = Console.ReadLine();
 
-                                proxy.InstallSmartMeter(id, consumer, consumption);
+                                dataForEncryption = string.Join(separator, tempStr);
+                                cipherText = AES_Symm_Algorithm.EncryptFile(dataForEncryption, eSecretKey);
+
+                                proxy.InstallSmartMeter(cipherText);
                                 break;
                             }
                         case 5:
@@ -102,8 +137,12 @@ namespace User
                                 Console.WriteLine("5. Remove SmartMeter");
                                 Console.Write("\tID= ");
                                 id = Int32.Parse(Console.ReadLine());
+                                tempStr[0] = id.ToString();
 
-                                proxy.RemoveSmartMeter(id);
+                                dataForEncryption = string.Join(separator, tempStr);
+                                cipherText = AES_Symm_Algorithm.EncryptFile(dataForEncryption, eSecretKey);
+
+                                proxy.RemoveSmartMeter(cipherText);
                                 break;
                             }
                         case 6:
@@ -123,7 +162,7 @@ namespace User
                             break;
                     }
 
-                } while ((operation > 0) && (operation < 8)); 
+                } while (true); 
             }
 
 

@@ -19,9 +19,7 @@ namespace User
         }
 
         public UserProxy(NetTcpBinding binding, EndpointAddress address) : base(binding, address)
-        {
-
-            Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+        {         
             factory = this.CreateChannel();
             
         }
@@ -55,12 +53,12 @@ namespace User
             }
         }
 
-        public void ChangeClientsConsumption(int id, string newConsumption)
+        public void ChangeClientsConsumption(byte[] idAndNewConsumption)
         {
             try
             {
 
-                factory.ChangeClientsConsumption(id, newConsumption);
+                factory.ChangeClientsConsumption(idAndNewConsumption);
 
             }
             catch (FaultException<SecurityException> e)
@@ -84,12 +82,12 @@ namespace User
             }
         }
 
-        public void ChangeSmartMeterID(int id, int newID)
+        public void ChangeSmartMeterID(byte[] idAndNewId)
         {
             try
             {
 
-                factory.ChangeSmartMeterID(id, newID);
+                factory.ChangeSmartMeterID(idAndNewId);
 
             }
             catch (FaultException<SecurityException> e)
@@ -143,13 +141,13 @@ namespace User
             }
         }
 
-        public string GetConsumption(int id, string clientConsumption)
+        public string GetConsumption(byte[] idAndConsumption)
         {
 
             try
             {
 
-                return factory.GetConsumption(id, clientConsumption);
+                return factory.GetConsumption(idAndConsumption);
 
             }
             catch (FaultException<SecurityException> e)
@@ -157,31 +155,31 @@ namespace User
                 Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
                 Console.WriteLine("Security Error: {0}", e.Detail.Message);
                 Console.WriteLine("x x x x x x x x x x x x x x x x x x x x x x x x x x\n");
-                return string.Format("Security Error: {0}", e.Detail.Message);
+                return string.Empty;
             }
             catch (FaultException<OperationException> e)
             {
                 Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
                 Console.WriteLine("Operation Error: {0}", e.Detail.Message);
                 Console.WriteLine("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !\n");
-                return string.Format("Operation Error: {0}", e.Detail.Message);
+                return string.Empty;
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
                 this.Dispose();
-                return ex.Message;
+                return string.Empty;
             }
         }
 
-        public void InstallSmartMeter(int id, string user, string consumption)
+        public void InstallSmartMeter(byte[] idUserConsumption)
         {
             
             try
             {
 
-                factory.InstallSmartMeter(id, user, consumption);
+                factory.InstallSmartMeter(idUserConsumption);
 
             }
             catch (FaultException<SecurityException> e)
@@ -206,7 +204,7 @@ namespace User
             
         }
 
-        public void RemoveSmartMeter(int id)
+        public void RemoveSmartMeter(byte[] id)
         {
             try
             {
